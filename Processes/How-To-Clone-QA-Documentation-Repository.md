@@ -108,10 +108,59 @@ Your explorer panel on the left should show these folders:
 
 ---
 
+## 🔄 Keeping Your Repository Up to Date
+
+It is important to regularly **sync your local repository with the main branch** to ensure you always have the latest documents and updates made by your teammates.
+
+Before starting any new work, always refresh your local copy by clicking the **sync icon** (🔄) next to **"main"** in the bottom left of VS Code.
+
+> ⚠️ If you do not sync regularly, your local copy may become **out of date**, meaning you could be working from old documents or miss updates that colleagues have already made.
+
+**A good habit is:**
+- Sync **at the start of every working day**
+- Sync **before creating any new documents**
+- Sync **after a colleague tells you they have added something new**
+
+---
+
 ## 💬 Using Copilot Chat to Create Documents
+
 Once set up, open the **Copilot Chat panel** (right side of VS Code) and try:
 
 > *"Using the Azure DevOps MCP, fetch PBI [number] from pgltravel and save a Test Plan document in the TestPlans folder"*
+
+### 📋 What to Expect
+1. Copilot may ask some **clarifying questions** before it proceeds — answer these as accurately as possible
+2. When prompted, provide the **full Azure DevOps URL** for the PBI, for example:
+   ```
+   https://dev.azure.com/PGL-Beyond/pgltravel/_workitems/edit/[PBINumber]
+   ```
+3. Copilot will **fetch the PBI details** from Azure DevOps, including the title, description and acceptance criteria
+4. It will then **automatically generate** a Test Plan document based on the PBI content
+5. The document will be **saved directly** into the correct folder (e.g. TestPlans) in your repository — no manual saving required!
+
+> 💡 You do not need to create anything in Azure DevOps — Copilot only reads from it and saves the document locally to your repository
+
+---
+
+## 👁️ Viewing Documents in a User-Friendly Format
+
+Documents are saved as Markdown (`.md`) files. Here are the best ways to view them:
+
+**Option 1 — View on GitHub Website** ✅ Recommended
+1. Go to `https://github.com/[YourUsername]/QA-Documentation`
+2. Navigate to the relevant folder (e.g. **TestPlans**)
+3. Click the file — GitHub automatically displays it in a clean, formatted view
+
+**Option 2 — Preview in VS Code**
+1. Open the file in VS Code
+2. Press **Ctrl + Shift + V** to open a formatted preview
+3. Or click the **preview icon** (split screen icon) in the top right corner of the file
+
+**Option 3 — Copy into Word**
+1. Open the file and copy the contents (**Ctrl + A**, then **Ctrl + C**)
+2. Paste into a **Microsoft Word** document (**Ctrl + V**)
+3. Save and upload to SharePoint if needed
 
 ---
 
