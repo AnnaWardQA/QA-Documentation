@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Test Cases - Login Session Across Subdomains</title>
+<style>
+body { font-family: Arial, sans-serif; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #666; padding: 6px; text-align: left; }
+th { background: #eee; }
+h1, h2 { color: #003366; }
+.code { font-family: Consolas, monospace; background: #f7f7f7; padding: 4px 6px; }
+</style>
+</head>
+<body>
+<h1>Test Cases - Task 26464: Make login session carry across all sub domains</h1>
+<p>Feature: Make changes so login session carries across all sub domains. PR: share cookies across domains.</p>
+<h2>Consolidated Test Case Matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Test Case ID</th>
+<th>Test Scenario</th>
+<th>Preconditions</th>
+<th>Test Steps</th>
+<th>Test Data</th>
+<th>Expected Result</th>
+<th>Priority</th>
+<th>Test Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TS-001</td>
+<td>Basic cross-subdomain login persistence (happy path)</td>
+<td>User account exists; browser cleared; site uses HTTPS; cookie domain configured to parent domain (e.g. .pgl.co.uk)</td>
+<td>1. Open https://www.pgl.co.uk<br>2. Log in with valid credentials<br>3. Navigate to https://holiday.pgl.co.uk (subdomain)<br>4. Verify user is still authenticated</td>
+<td>Valid username/password</td>
+<td>User remains authenticated on subdomain without re-login; session cookie present for parent domain</td>
+<td>High</td>
+<td>Functional, Smoke</td>
+</tr>
+<tr>
+<td>TS-002</td>
+<td>Login then redirect to subdomain (post-login redirect)</td>
+<td>Same as TS-001; login flow redirects to another subdomain after auth</td>
+<td>1. From https://www.pgl.co.uk, initiate login and complete<br>2. Ensure application redirects to https://services.pgl.co.uk/dashboard<br>3. Confirm authenticated session and no extra login prompt</td>
+<td>Valid creds; redirect URL configured</td>
+<td>After redirect, user is authenticated and landing page shows user info</td>
+<td>High</td>
+<td>Functional, Regression</td>
+</tr>
+<tr>
+<td>TS-003</td>
+<td>Cookie `Secure` and HTTPS enforcement (HTTP vs HTTPS)</td>
+<td>Environment supports both HTTP and HTTPS; cookie set with `Secure` flag</td>
+<td>1. Log in over HTTPS to https://www.pgl.co.uk<br>2. Visit http://subdomain.pgl.co.uk (HTTP) in same browser session<br>3. Observe authentication state and cookie transmission</td>
+<td>Valid creds</td>
+<td>Cookie with `Secure` not sent over HTTP; user is not authenticated on HTTP-only subdomain. Over HTTPS subdomain, user remains authenticated.</td>
+<td>High</td>
+<td>Security, Functional</td>
+</tr>
+<tr>
+<td>TS-004</td>
+<td>Cookie `Domain` attribute correctness (parent domain vs explicit subdomain)</td>
+<td>Cookies set either with `Domain=.pgl.co.uk` or `Domain=www.pgl.co.uk` depending on config</td>
+<td>1. Log in and inspect session cookie domain attribute<br>2. Access multiple subdomains and verify cookie availability<br>3. Change to explicit subdomain domain (if test environment allows) and observe behavior</td>
+<td>Valid creds</td>
+<td>When `Domain=.pgl.co.uk` cookie is visible to all subdomains; if domain set to specific subdomain, other subdomains don't receive it</td>
+<td>High</td>
+<td>Functional, Compatibility</td>
+</tr>
+<tr>
+<td>TS-005</td>
+<td>SameSite attribute: cross-site contexts and third-party requests</td>
+<td>Application sets SameSite value (None/Lax/Strict) depending on config; browser supports SameSite policy</td>
+<td>1. Configure cookie with SameSite=None and Secure=true; login<br>2. Load subdomain within an iframe from a different origin (if applicable) and verify session<br>3. Repeat with SameSite=Lax/Strict and observe differences</td>
+<td>Valid creds; iframe host on other origin</td>
+<td>SameSite=None + Secure allows cross-site contexts; Lax/Strict may block cookie in some cross-site flows</td>
+<td>High</td>
+<td>Functional, Security, Compatibility</td>
+</tr>
+<tr>
+<td>TS-006</td>
+<td>Logout propagation across subdomains</td>
+<td>User logged in across multiple subdomains</td>
+<td>1. Log in and confirm authentication on two subdomains<br>2. Perform logout action on one subdomain<br>3. Refresh the other subdomain and verify authentication state</td>
+<td>Valid creds</td>
+<td>Logout invalidates session across all subdomains (user is logged out everywhere)</td>
+<td>High</td>
+<td>Functional, Security</td>
+</tr>
+<tr>
+<td>TS-007</td>
+<td>Session expiry and cookie expiry boundary</td>
+<td>Short session timeout configured for test (e.g., 1 minute) or ability to manipulate expiry</td>
+<td>1. Log in and confirm authenticated state<br>2. Wait until session timeout + small delta<br>3. Attempt to access protected page on subdomain and verify forced re-login</td>
+<td>Valid creds; timeout setting</td>
+<td>After session expiry, user must re-authenticate on all subdomains; expired cookie is not accepted</td>
+<td>Medium</td>
+<td>Functional, Boundary</td>
+</tr>
+<tr>
+<td>TS-008</td>
+<td>Concurrent sessions and session invalidation (fixation, reuse)</td>
+<td>Two different browsers or private window and regular browser available</td>
+<td>1. Log in in Browser A and capture session cookie<br>2. Attempt to reuse the same cookie in Browser B (or simulate by copying cookie)<br>3. Verify whether server accepts reused cookie or invalidates session</td>
+<td>Valid creds; ability to set cookies manually</td>
+<td>Server-side session mechanisms prevent session fixation; copied cookie is either invalid or triggers additional security checks</td>
+<td>Medium</td>
+<td>Security, Negative</td>
+</tr>
+<tr>
+<td>TS-009</td>
+<td>Cookie header size and header limits (large cookie)</td>
+<td>Test environment with large cookie creation capability (e.g., extra attributes or multiple cookies)</td>
+<td>1. Generate a large session cookie near size limits (e.g., multiple kilobytes)<br>2. Log in and navigate to subdomain<br>3. Observe any truncation or 400/431 responses from server</td>
+<td>Large payload cookie</td>
+<td>Servers and proxies handle cookies; if header exceeds limits, requests fail or cookie truncated causing auth failure</td>
+<td>Low</td>
+<td>Negative, Performance</td>
+</tr>
+<tr>
+<td>TS-010</td>
+<td>Subdomain permutations: www, no-www, regional/localized subdomains</td>
+<td>Multiple subdomains exist (www, holiday, services, en.pgl, fr.pgl etc.)</td>
+<td>1. Log in at one variant (e.g., https://www.pgl.co.uk)<br>2. Visit en.pgl.co.uk, fr.pgl.co.uk, holiday.pgl.co.uk, and non-www domain if present<br>3. Verify authentication status on each</td>
+<td>Valid creds</td>
+<td>Authentication available consistently across all configured subdomains when cookie domain is set correctly; differences documented for domains outside parent domain</td>
+<td>Medium</td>
+<td>Compatibility, Functional</td>
+</tr>
+<tr>
+<td>TS-011</td>
+<td>Different ports on same host (port boundary conditions)</td>
+<td>Test environment with services on different ports (e.g., https://www.pgl.co.uk:8443)</td>
+<td>1. Log in at standard port 443<br>2. Access same hostname but different port and observe cookie transmission and auth state</td>
+<td>Valid creds; alternate port service</td>
+<td>Cookies are not port-specific; browser will send cookie for same host and scheme. However, some proxies or servers may treat ports differently; verify behavior</td>
+<td>Low</td>
+<td>Functional, Boundary</td>
+</tr>
+<tr>
+<td>TS-012</td>
+<td>Third-party cookie blocking & ITP/Browser privacy features</td>
+<td>Browser with strict tracking prevention or ITP enabled (Safari, Brave, Firefox strict)</td>
+<td>1. Log in on primary domain<br>2. Load embedded content from subdomain or make cross-site requests that rely on cookie<br>3. Observe whether cookies are blocked and whether session persists</td>
+<td>Valid creds; privacy-mode browsers</td>
+<td>Browsers with strict policies may block cookies in certain contexts; application must handle or surface appropriate fallbacks</td>
+<td>Medium</td>
+<td>Compatibility, Negative</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Consolidated Detailed Test Cases</h2>
+
+<!-- For each test case include name, description, preconditions, and detailed step-by-step execution -->
+
+<h3>TS-001 — Basic cross-subdomain login persistence (Happy path)</h3>
+<p><strong>Description:</strong> Verify that after logging in on the main domain, the user remains authenticated when navigating to other subdomains under the same parent domain.</p>
+<p><strong>Preconditions:</strong> Test account exists; browser cache & cookies cleared; environment accessible via HTTPS; cookie `Domain` configured to `.pgl.co.uk`.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Open a fresh browser session (no cookies/cache).</li>
+<li>Navigate to https://www.pgl.co.uk/login.</li>
+<li>Enter valid test credentials and complete login.</li>
+<li>Confirm successful login by observing user name/profile link on www.pgl.co.uk.</li>
+<li>In same browser session, navigate to https://holiday.pgl.co.uk (or another subdomain).</li>
+<li>Confirm the user is shown as authenticated (profile visible, access to protected pages without login prompt).</li>
+<li>Open browser dev tools → Application → Cookies and verify that session cookie `Domain` is `.pgl.co.uk` and is present.</li>
+</ol>
+<p><strong>Expected Result:</strong> User remains authenticated across the subdomain; session cookie is set with parent domain and transmitted to subdomain requests.</p>
+
+<h3>TS-002 — Login then redirect to subdomain</h3>
+<p><strong>Description:</strong> Validate that a post-auth redirect to a different subdomain retains the authenticated session.</p>
+<p><strong>Preconditions:</strong> Redirect configured; same preconditions as TS-001.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Open a fresh browser session.</li>
+<li>Navigate to https://www.pgl.co.uk/login and perform login with valid credentials.</li>
+<li>Trigger an action that redirects the user post-login to https://services.pgl.co.uk/dashboard (or equivalent).</li>
+<li>After redirect, confirm the dashboard loads and displays user-specific data without requiring another login.</li>
+<li>Check cookies to ensure session cookie exists with `Domain=.pgl.co.uk`.</li>
+</ol>
+<p><strong>Expected Result:</strong> Redirected subdomain shows authenticated session and no additional login is required.</p>
+
+<h3>TS-003 — Cookie Secure flag and HTTP vs HTTPS</h3>
+<p><strong>Description:</strong> Ensure cookies that have `Secure` flag aren't sent over HTTP and that authentication only works over HTTPS.</p>
+<p><strong>Preconditions:</strong> Cookie configured with Secure; both HTTP and HTTPS endpoints available for testing.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Using a fresh browser, log in over HTTPS to https://www.pgl.co.uk.</li>
+<li>Confirm authentication on an HTTPS subdomain (https://holiday.pgl.co.uk).</li>
+<li>Navigate to http://holiday.pgl.co.uk (HTTP). Observe whether user is authenticated.</li>
+<li>Inspect cookies on HTTP and HTTPS contexts to see if `Secure` cookie is present in requests.</li>
+</ol>
+<p><strong>Expected Result:</strong> Secure cookie is only sent over HTTPS; HTTP pages do not receive the cookie and therefore show unauthenticated state.</p>
+
+<h3>TS-004 — Cookie Domain attribute correctness</h3>
+<p><strong>Description:</strong> Verify that setting cookie `Domain` to `.pgl.co.uk` makes it available to all subdomains, while setting it to a specific subdomain limits its scope.</p>
+<p><strong>Preconditions:</strong> Ability to configure cookie Domain or test environments with different domain settings.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Configure cookie to `Domain=.pgl.co.uk` (if environment allows) and restart app if needed.</li>
+<li>Log in and confirm cookie `Domain` attribute via dev tools.</li>
+<li>Navigate across multiple subdomains to confirm authentication.</li>
+<li>Repeat with cookie set to `Domain=www.pgl.co.uk` and verify other subdomains do not receive the cookie.</li>
+</ol>
+<p><strong>Expected Result:</strong> Parent-domain cookie is visible to all subdomains; explicit subdomain cookie is not.</p>
+
+<h3>TS-005 — SameSite attribute: None vs Lax vs Strict</h3>
+<p><strong>Description:</strong> Test cookies with different SameSite settings to observe cross-site behavior (especially for iframe or cross-origin redirects).</p>
+<p><strong>Preconditions:</strong> Ability to configure SameSite values and test pages that simulate cross-site contexts.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Set SameSite=None and Secure=true; log in and attempt cross-site/iframe scenarios that rely on cookies.</li>
+<li>Observe whether session cookie is used in embedded or cross-site requests.</li>
+<li>Change SameSite to Lax, repeat the scenario, and note differences.</li>
+<li>Change SameSite to Strict and repeat.</li>
+</ol>
+<p><strong>Expected Result:</strong> SameSite=None allows cross-site contexts when Secure=true; Lax/Strict limit cookie usage in cross-site flows per spec.</p>
+
+<h3>TS-006 — Logout propagation across subdomains</h3>
+<p><strong>Description:</strong> Confirm that logging out from one subdomain invalidates session on other subdomains.</p>
+<p><strong>Preconditions:</strong> User logged in and authenticated on at least two subdomains.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Log in on https://www.pgl.co.uk.</li>
+<li>Open https://holiday.pgl.co.uk in a new tab and confirm authenticated state.</li>
+<li>On one tab, perform logout action (click logout, server-side invalidate session).</li>
+<li>On the other tab, refresh protected pages and confirm the user is logged out.</li>
+</ol>
+<p><strong>Expected Result:</strong> Session invalidation is propagated and user is logged out across subdomains.</p>
+
+<h3>TS-007 — Session expiry and cookie expiry boundary</h3>
+<p><strong>Description:</strong> Verify behaviour when session timeout occurs and align cookie expiry boundaries.</p>
+<p><strong>Preconditions:</strong> Testable short session timeout (configurable) or ability to manipulate session storage.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Log in and confirm authenticated state across subdomains.</li>
+<li>Wait for configured session timeout (e.g., 1 minute) plus a small buffer.</li>
+<li>Attempt to access a protected resource on a subdomain.</li>
+<li>Confirm user is prompted to re-authenticate.</li>
+</ol>
+<p><strong>Expected Result:</strong> After expiry, session is invalidated and protected pages require login on all subdomains.</p>
+
+<h3>TS-008 — Concurrent sessions and session fixation</h3>
+<p><strong>Description:</strong> Test that session cookies can't be trivially replayed/reused from other clients and that server-side protections exist.</p>
+<p><strong>Preconditions:</strong> Two separate browser contexts (or ability to set cookies manually).</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Log in on Browser A and extract session cookie value.</li>
+<li>In Browser B (or private window), import or set the same cookie value for parent domain.</li>
+<li>Attempt to access protected resources.</li>
+<li>Observe whether server accepts the cookie or forces re-authentication / denies access.</li>
+</ol>
+<p><strong>Expected Result:</strong> Server rejects cookie reuse, rotates session identifiers on login, and prevents fixation attacks.</p>
+
+<h3>TS-009 — Cookie header size and server/proxy limits</h3>
+<p><strong>Description:</strong> Confirm behavior when cookie headers approach or exceed typical HTTP header size limits.</p>
+<p><strong>Preconditions:</strong> Ability to create large cookies; knowledge of proxy limits.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Create a large session cookie and log in.</li>
+<li>Perform requests that include cookie headers to subdomains.</li>
+<li>Observe for truncated cookies, HTTP 400/431 responses, or other errors from proxies/servers.</li>
+</ol>
+<p><strong>Expected Result:</strong> Requests fail or cookies truncated if header limits exceeded; document failure mode and remediation.</p>
+
+<h3>TS-010 — Subdomain permutations (www, regional, localized)</h3>
+<p><strong>Description:</strong> Validate session across typical subdomain patterns used in production including locale-specific and service-specific subdomains.</p>
+<p><strong>Preconditions:</strong> Multiple subdomains configured and reachable.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Log in on primary domain.</li>
+<li>Visit a list of subdomains (e.g., en.pgl.co.uk, fr.pgl.co.uk, holiday.pgl.co.uk, services.pgl.co.uk).</li>
+<li>Verify authenticated state and access to protected resources on each.</li>
+</ol>
+<p><strong>Expected Result:</strong> Authentication persists across all subdomains covered by cookie domain.</p>
+
+<h3>TS-011 — Different port behavior</h3>
+<p><strong>Description:</strong> Check cookie behavior when the same host is accessed on different ports.</p>
+<p><strong>Preconditions:</strong> Service available on alternate port(s) for testing.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Log in on https://www.pgl.co.uk (default port 443).</li>
+<li>Access same hostname on alternate port (https://www.pgl.co.uk:8443 if available).</li>
+<li>Verify if cookie is sent and whether authentication persists.</li>
+</ol>
+<p><strong>Expected Result:</strong> Browser sends cookie to same host/scheme regardless of port; verify server behavior. Note any infrastructure that isolates by port.</p>
+
+<h3>TS-012 — Browser privacy features and third-party cookie blocking</h3>
+<p><strong>Description:</strong> Ensure application handles browsers that block third-party cookies or implement Intelligent Tracking Prevention (ITP).</p>
+<p><strong>Preconditions:</strong> Browsers with strict tracking prevention (Safari, Brave, Firefox strict) available for testing.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Open a privacy-focused browser or enable strict tracking protection.</li>
+<li>Log in on primary domain then perform flows that rely on cookie sharing (cross-origin iframe or resource requests).</li>
+<li>Observe whether session persists and whether the app provides fallback or prompts.</li>
+</ol>
+<p><strong>Expected Result:</strong> Some browsers may block cookies in specific contexts; document behavior and recommend mitigations (e.g., SameSite=None+Secure, server-side token exchange).</p>
+
+<hr>
+<p><em>Notes & test data references:</em></p>
+<ul>
+<li>Use dedicated test accounts with known credentials (e.g., testuser+ts01@pgl.co.uk / Password1!).</li>
+<li>Where environment config changes required (cookie Domain, SameSite), coordinate with dev/ops to perform controlled toggles or use staging environments.</li>
+<li>For negative tests (cookie reuse, large cookies), use dev tools, cookie editors, or proxy tools (Burp, Fiddler) to manipulate cookies and headers.</li>
+<li>Record results and capture HTTP(S) request/response headers and screenshots for any failures.</li>
+</ul>
+
+</body>
+</html>

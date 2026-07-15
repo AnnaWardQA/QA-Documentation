@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:body>
+    <w:p>
+      <w:r><w:t>Test Cases - Task 26464: Make login session carry across all sub domains</w:t></w:r>
+    </w:p>
+    <w:p><w:r><w:t>Feature: Make changes so login session carries across all sub domains. PR: share cookies across domains.</w:t></w:r></w:p>
+    <w:p><w:r><w:t> </w:t></w:r></w:p>
+    <w:p><w:r><w:t>TS-001 — Basic cross-subdomain login persistence (Happy path)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Description: Verify that after logging in on the main domain, the user remains authenticated when navigating to other subdomains under the same parent domain.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Preconditions: Test account exists; browser cache & cookies cleared; environment accessible via HTTPS; cookie Domain configured to .pgl.co.uk.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Steps: 1) Open fresh browser. 2) Go to https://www.pgl.co.uk/login and sign in. 3) Confirm login on www. 4) Go to https://holiday.pgl.co.uk and confirm authenticated. 5) Inspect cookie Domain=.pgl.co.uk.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Expected: User remains authenticated across subdomains; session cookie set on parent domain.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-002 — Login then redirect to subdomain: Validate post-auth redirect retains session.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Steps: Login on www, trigger redirect to https://services.pgl.co.uk/dashboard, verify authenticated landing.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-003 — Cookie Secure flag and HTTP vs HTTPS: Secure cookies must not be sent over HTTP.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-004 — Cookie Domain attribute correctness: Domain=.pgl.co.uk visible to all subdomains; explicit subdomain cookie is not.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-005 — SameSite attribute tests: None vs Lax vs Strict for cross-site contexts (iframes, cross-origin redirects).</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-006 — Logout propagation across subdomains: Logout on one subdomain invalidates session on all.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-007 — Session expiry and cookie expiry boundary: Short timeout test and re-authentication required post-expiry.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-008 — Concurrent sessions and session fixation: Attempt cookie reuse in another browser; verify server-side protections.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-009 — Cookie header size and server/proxy limits: Large cookie payloads causing truncation or 431 errors.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-010 — Subdomain permutations: Test www, regional (en, fr), holiday, services subdomains.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-011 — Different ports on same host: Verify cookie/send behavior across ports.</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t>TS-012 — Third-party cookie blocking & ITP: Test in privacy-focused browsers and document fallback behavior.</w:t></w:r></w:p>
+
+    <w:sectPr/>
+  </w:body>
+</w:document>

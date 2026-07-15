@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+    xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
+    xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing"
+    xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+    xmlns:w10="urn:schemas-microsoft-com:office:word"
+    xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+    mc:Ignorable="w14 wp14">
+  <w:body>
+    <w:p><w:r><w:t>Defect Report — Epic 24860</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></w:p>
+    <w:p><w:r><w:t>ID: D-001</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://abta.com/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: 403</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: High</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: Forbidden on HEAD/GET</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Confirm with GET; contact partner or whitelist agent if 403 persists</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></w:p>
+
+    <w:p><w:r><w:t>ID: D-002</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://englandnetball.co.uk/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: 429</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: Rate limited (429)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Retry later; throttle requests; record timeframe of 429</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></w:p>
+
+    <w:p><w:r><w:t>ID: D-003</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://www.lotc.org.uk/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Verify with GET; if reachable mark OK; if not, escalate</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-004</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://www.outdoor-learning.org/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Verify with GET; if reachable mark OK; if not, escalate</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-005</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://www.rya.org.uk/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Verify with GET; if reachable mark OK; if not, escalate</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-006</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://www.skillsactive.com/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: 403</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: High</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: Forbidden on GET (server blocks automated requests)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Confirm with browser GET; contact site admin if 403 persists</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-007</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: http://www.thebapa.org.uk/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: 403</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: High</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: Forbidden on HEAD/GET</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Confirm with GET; contact site admin or partner</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-008</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: https://caa.co.uk/atol-protection/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Verify with GET in browser; if blocked, ask for whitelist</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-009</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: https://jobs.pgl.co.uk/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed (internal careers link)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Verify with browser GET; consider partner whitelist</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-010</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: https://pglbeyond.com/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Verify with GET; if accessible, mark OK</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-011</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: https://schoolsandgroups.pgl.co.uk/international-agents/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Medium</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: No HEAD/GET response observed</w:t></w:r></p>
+
+    <w:p><w:r><w:t>Recommendation: Verify with browser GET</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-012</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: https://twitter.com/pglholidays</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: (blank)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: Low</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: Social platform commonly blocks automated HEADs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Manual verification; no action unless link broken in browser</w:t></w:r></w:p>
+    <w:p><w:r><w:t/></w:r></p>
+
+    <w:p><w:r><w:t>ID: D-013</w:t></w:r></w:p>
+    <w:p><w:r><w:t>URL: https://www.britishcanoeing.org.uk/</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Status: 403</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Severity: High</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Reason: Forbidden on GET/HEAD</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Recommendation: Confirm with GET; contact site admin if persistent</w:t></w:r></w:p>
+
+    <w:p><w:r><w:t/></w:r></w:p>
+    <w:sectPr>
+      <w:pgSz w:w="12240" w:h="15840"/>
+      <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
+      <w:cols w:space="720"/>
+      <w:docGrid w:linePitch="360"/>
+    </w:sectPr>
+  </w:body>
+</w:document>
