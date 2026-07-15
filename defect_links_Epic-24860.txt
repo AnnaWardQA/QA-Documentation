@@ -1,0 +1,14 @@
+ID	URL	Status	Severity	Reason	Reproduction	Recommendation
+D-001	http://abta.com/	403	High	Forbidden on HEAD/GET	Run: curl -I http://abta.com/ or open in browser	Confirm with GET; contact partner or whitelist agent if 403 persists
+D-002	http://englandnetball.co.uk/	429	Medium	Rate limited (429)	Run: curl -I http://englandnetball.co.uk/ (retry later)	Retry later; throttle requests; record time window when 429 occurs
+D-003	http://www.lotc.org.uk/		Medium	No HEAD/GET response observed	Run: curl -I http://www.lotc.org.uk/ or open in browser	Verify with GET; if reachable mark OK; if not, escalate
+D-004	http://www.outdoor-learning.org/		Medium	No HEAD/GET response observed	Run: curl -I http://www.outdoor-learning.org/	Verify with GET; if reachable mark OK; if not, escalate
+D-005	http://www.rya.org.uk/		Medium	No HEAD/GET response observed	Run: curl -I http://www.rya.org.uk/	Verify with GET; if reachable mark OK; if not, escalate
+D-006	http://www.skillsactive.com/	403	High	Forbidden on GET (server blocks automated requests)	Run: curl -I http://www.skillsactive.com/ and curl -s -o nul -w "%{http_code}" http://www.skillsactive.com/	Confirm with browser GET; contact site admin if 403 persists
+D-007	http://www.thebapa.org.uk/	403	High	Forbidden on HEAD/GET	Run: curl -I http://www.thebapa.org.uk/	Confirm with GET; contact site admin or partner
+D-008	https://caa.co.uk/atol-protection/		Medium	No HEAD/GET response observed	Run: curl -I https://caa.co.uk/atol-protection/	Verify with GET in browser; if blocked, ask for whitelist
+D-009	https://jobs.pgl.co.uk/		Medium	No HEAD/GET response observed (internal careers link)	Run: curl -I https://jobs.pgl.co.uk/	Verify with browser GET; consider partner whitelist
+D-010	https://pglbeyond.com/		Medium	No HEAD/GET response observed	Run: curl -I https://pglbeyond.com/	Verify with GET; if accessible, mark OK
+D-011	https://schoolsandgroups.pgl.co.uk/international-agents/		Medium	No HEAD/GET response observed	Run: curl -I https://schoolsandgroups.pgl.co.uk/international-agents/	Verify with browser GET
+D-012	https://twitter.com/pglholidays		Low	Social platform commonly blocks automated HEADs	Open in browser or run curl -I https://twitter.com/pglholidays	Manual verification; no action unless link broken in browser
+D-013	https://www.britishcanoeing.org.uk/	403	High	Forbidden on GET/HEAD	Run: curl -I https://www.britishcanoeing.org.uk/	Confirm with GET; contact site admin if persistent
