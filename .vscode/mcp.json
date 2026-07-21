@@ -1,0 +1,18 @@
+{
+  "servers": {
+    "microsoft/azure-devops-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure-devops/mcp@latest",
+        "pgltravel",
+        "-d",
+        "work-items,test-plans,search"
+      ],
+      "env": {
+        "AZURE_DEVOPS_PAT": "your-pat-token-here"
+      }
+    }
+  }
+}
