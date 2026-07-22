@@ -7,11 +7,11 @@ with open('TestCases/pbi-26041-testcases.json') as f:
 
 for tc in tests:
     result = subprocess.run([
-        'az', 'boards', 'work-item', 'create',
+        'az.cmd', 'boards', 'work-item', 'create',
         '--type', 'Test Case',
         '--title', tc['title'],
         '--fields', 'Microsoft.VSTS.TCM.Steps=' + tc['steps']
-    ], capture_output=True, text=True)
+    ], capture_output=True, text=True, shell=False)
 
     if '"id"' in result.stdout:
         wid = re.search(r'"id": (\d+)', result.stdout).group(1)
