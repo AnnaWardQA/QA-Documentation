@@ -1,97 +1,54 @@
 [
   {
     "title": "TC-01 - Logo: site-specific redirect (core)",
-    "steps": [
-      { "action": "Open https://familyadventures.qa.pgl.co.uk/ in Chrome.", "expected": "Header loads and PGL logo is visible top-left." },
-      { "action": "Click the PGL logo.", "expected": "Browser navigates to https://familyadventures.qa.pgl.co.uk/ (site homepage) and page title matches expected homepage title." },
-      { "action": "Repeat for https://www.qa.pgl.co.uk/ and https://jobs.qa.pgl.co.uk/.", "expected": "Each logo click navigates to the respective site's staging homepage." }
-    ]
+    "steps": "<steps id=\"0\" last=\"3\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open https://familyadventures.qa.pgl.co.uk/ in Chrome.</parameterizedString><parameterizedString isformatted=\"true\">Header loads and PGL logo is visible top-left.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Click the PGL logo.</parameterizedString><parameterizedString isformatted=\"true\">Browser navigates to https://familyadventures.qa.pgl.co.uk/ (site homepage) and page title matches expected homepage title.</parameterizedString><description/></step><step id=\"3\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Repeat for https://www.qa.pgl.co.uk/ and https://jobs.qa.pgl.co.uk/.</parameterizedString><parameterizedString isformatted=\"true\">Each logo click navigates to the respective site's staging homepage.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-02 - Menu visual conformance (desktop, 1366x768)",
-    "steps": [
-      { "action": "Open https://familyadventures.qa.pgl.co.uk/ at desktop viewport 1366x768.", "expected": "Header menu spacing, fonts, icons and colours match reference screenshot from AssetsForDev.zip; no overlap or missing icons." },
-      { "action": "Capture screenshot and compare to reference.", "expected": "Visual diff within accepted tolerance or discrepancies logged as defects." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open https://familyadventures.qa.pgl.co.uk/ at desktop viewport 1366x768.</parameterizedString><parameterizedString isformatted=\"true\">Header menu spacing, fonts, icons and colours match reference screenshot from AssetsForDev.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Capture screenshot and compare to reference.</parameterizedString><parameterizedString isformatted=\"true\">Visual diff within accepted tolerance or discrepancies logged as defects.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-03 - Hover / submenu behavior (desktop)",
-    "steps": [
-      { "action": "Open https://www.qa.pgl.co.uk/ in Chrome.", "expected": "Page loads with header present." },
-      { "action": "Hover the top-level menu item 'Holidays' (or equivalent).", "expected": "Submenu appears within 1s; no console JS errors." },
-      { "action": "Move pointer into submenu and interact.", "expected": "Submenu remains visible while interacting and closes on pointer leave." }
-    ]
+    "steps": "<steps id=\"0\" last=\"3\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open https://www.qa.pgl.co.uk/ in Chrome.</parameterizedString><parameterizedString isformatted=\"true\">Page loads with header present.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Hover the top-level menu item 'Holidays' (or equivalent).</parameterizedString><parameterizedString isformatted=\"true\">Submenu appears within 1s; no console JS errors.</parameterizedString><description/></step><step id=\"3\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Move pointer into submenu and interact.</parameterizedString><parameterizedString isformatted=\"true\">Submenu remains visible while interacting and closes on pointer leave.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-04 - Mobile: hamburger, expand/collapse and navigation",
-    "steps": [
-      { "action": "Open https://familyadventures.qa.pgl.co.uk/ in mobile emulator (375x812) or device.", "expected": "Page loads with hamburger icon visible." },
-      { "action": "Tap hamburger to open menu.", "expected": "Menu opens and items are tappable." },
-      { "action": "Tap a parent item to expand children, then tap a leaf link 'Activities'.", "expected": "Navigation to expected page succeeds (HTTP 200) and page content heading matches expected." }
-    ]
+    "steps": "<steps id=\"0\" last=\"3\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open https://familyadventures.qa.pgl.co.uk/ in mobile emulator (375x812) or device.</parameterizedString><parameterizedString isformatted=\"true\">Page loads with hamburger icon visible.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Tap hamburger to open menu.</parameterizedString><parameterizedString isformatted=\"true\">Menu opens and items are tappable.</parameterizedString><description/></step><step id=\"3\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Tap a parent item to expand children, then tap a leaf link 'Activities'.</parameterizedString><parameterizedString isformatted=\"true\">Navigation to expected page succeeds (HTTP 200) and page content heading matches expected.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-05 - Keyboard accessibility: focus and navigation",
-    "steps": [
-      { "action": "Open https://www.qa.pgl.co.uk/ and press Tab until header/menu gains focus.", "expected": "Header interactive elements receive focus in logical order." },
-      { "action": "With a top-level item focused press Enter to open submenu; use Arrow keys to navigate and Enter to activate.", "expected": "Submenu opens via keyboard; Arrow keys move focus; Enter activates link and navigates." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open https://www.qa.pgl.co.uk/ and press Tab until header/menu gains focus.</parameterizedString><parameterizedString isformatted=\"true\">Header interactive elements receive focus in logical order.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">With a top-level item focused press Enter to open submenu; use Arrow keys to navigate and Enter to activate.</parameterizedString><parameterizedString isformatted=\"true\">Submenu opens via keyboard; Arrow keys move focus; Enter activates the focused link.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-06 - Screen reader semantics (NVDA)",
-    "steps": [
-      { "action": "Start NVDA and open https://familyadventures.qa.pgl.co.uk/.", "expected": "NVDA announces page load." },
-      { "action": "Navigate to the menu and open items using NVDA navigation keys.", "expected": "ARIA roles and expanded/collapsed states are announced; menu usable by screen reader." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Start NVDA and open https://familyadventures.qa.pgl.co.uk/.</parameterizedString><parameterizedString isformatted=\"true\">NVDA announces page load.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Navigate to the menu and open items using NVDA navigation keys.</parameterizedString><parameterizedString isformatted=\"true\">ARIA roles and expanded/collapsed states are announced; menu usable by screen reader.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-07 - Focus visibility & contrast",
-    "steps": [
-      { "action": "Tab through header elements and confirm a visible focus indicator is present for each interactive control.", "expected": "Focus indicator is clearly visible for each control." },
-      { "action": "Run a contrast check for menu text vs background (Axe or WCAG checker).", "expected": "Contrast ratio meets WCAG AA (>=4.5:1 for normal text)." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Tab through header elements and confirm a visible focus indicator is present for each interactive control.</parameterizedString><parameterizedString isformatted=\"true\">Focus indicator is clearly visible for each control.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Run a contrast check for menu text vs background (Axe or WCAG checker).</parameterizedString><parameterizedString isformatted=\"true\">Contrast ratio meets WCAG AA (&gt;=4.5:1 for normal text).</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-08 - Responsive breakpoints & boundary checks",
-    "steps": [
-      { "action": "Resize viewport to widths: 1280, 1024, 768, 600, 375 and check header layout.", "expected": "Header adapts correctly; no overlap/truncation." },
-      { "action": "Test at boundary widths e.g. 767 and 769, 599 and 601.", "expected": "No layout break at -1px/+1px boundaries." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Resize viewport to widths: 1280, 1024, 768, 600, 375 and check header layout.</parameterizedString><parameterizedString isformatted=\"true\">Header adapts correctly; no overlap/truncation.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Test at boundary widths e.g. 767 and 769, 599 and 601.</parameterizedString><parameterizedString isformatted=\"true\">No layout break at -1px/+1px boundaries.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-09 - Link integrity and navigation",
-    "steps": [
-      { "action": "Click each top-level and submenu link from https://www.qa.pgl.co.uk/.", "expected": "Each destination returns HTTP 200 and page heading/title matches expected." }
-    ]
+    "steps": "<steps id=\"0\" last=\"1\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Click each top-level and submenu link from https://www.qa.pgl.co.uk/.</parameterizedString><parameterizedString isformatted=\"true\">Each destination returns HTTP 200 and page heading/title matches expected.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-10 - Auth-dependent menu items",
-    "steps": [
-      { "action": "Confirm menu when signed out on https://www.qa.pgl.co.uk/.", "expected": "Signed-out menu items visible as expected." },
-      { "action": "Log in as testuser+ts01@pgl.co.uk / Password1! and observe menu.", "expected": "Signed-in menu shows user-specific items; role-based differences visible if applicable." },
-      { "action": "Log out and confirm menu returns to signed-out state.", "expected": "Menu returns to signed-out view; logo redirect unchanged." }
-    ]
+    "steps": "<steps id=\"0\" last=\"3\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Confirm menu when signed out on https://www.qa.pgl.co.uk/.</parameterizedString><parameterizedString isformatted=\"true\">Signed-out menu items visible as expected.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Log in as testuser+ts01@pgl.co.uk / Password1! and observe menu.</parameterizedString><parameterizedString isformatted=\"true\">Signed-in menu shows user-specific items; role-based differences visible if applicable.</parameterizedString><description/></step><step id=\"3\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Log out and confirm menu returns to signed-out state.</parameterizedString><parameterizedString isformatted=\"true\">Menu returns to signed-out view; logo redirect unchanged.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-11 - Header config mapping verification",
-    "steps": [
-      { "action": "Open header mapping in CMS or mapping file and confirm logo target URL for each site.", "expected": "CMS mapping lists correct homepage targets for each site entry." },
-      { "action": "Click logo on staging and confirm runtime redirect matches CMS mapping.", "expected": "Runtime behavior matches CMS mapping." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open header mapping in CMS or mapping file and confirm logo target URL for each site.</parameterizedString><parameterizedString isformatted=\"true\">CMS mapping lists correct homepage targets for each site entry.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Click logo on staging and confirm runtime redirect matches CMS mapping.</parameterizedString><parameterizedString isformatted=\"true\">Runtime behavior matches CMS mapping.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-12 - Negative: JS/CSS failure resilience",
-    "steps": [
-      { "action": "Block header JS resource in DevTools and reload https://www.qa.pgl.co.uk/.", "expected": "Essential navigation remains reachable where possible; console errors captured for dev triage." },
-      { "action": "Restore resource and verify normal behavior.", "expected": "Header/menu returns to normal behavior after resource restored." }
-    ]
+    "steps": "<steps id=\"0\" last=\"2\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Block header JS resource in DevTools and reload https://www.qa.pgl.co.uk/.</parameterizedString><parameterizedString isformatted=\"true\">Essential navigation remains reachable where possible; console errors captured for dev triage.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Restore resource and verify normal behavior.</parameterizedString><parameterizedString isformatted=\"true\">Header/menu returns to normal behavior after resource restored.</parameterizedString><description/></step></steps>"
   },
   {
     "title": "TC-13 - Footer: content, links, branding and accessibility",
-    "steps": [
-      { "action": "Open https://www.qa.pgl.co.uk/ and scroll to footer.", "expected": "Footer matches design: columns, logos, certification badge and phone number present." },
-      { "action": "Click each footer link and confirm HTTP 200 and expected target.", "expected": "Footer links navigate to expected pages." },
-      { "action": "On mobile viewport confirm tappable areas and stack order.", "expected": "Footer stacks correctly and links are tappable on mobile." }
-    ]
+    "steps": "<steps id=\"0\" last=\"3\"><step id=\"1\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Open https://www.qa.pgl.co.uk/ and scroll to footer.</parameterizedString><parameterizedString isformatted=\"true\">Footer matches design: columns, logos, certification badge and phone number present.</parameterizedString><description/></step><step id=\"2\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">Click each footer link and confirm HTTP 200 and expected target.</parameterizedString><parameterizedString isformatted=\"true\">Footer links navigate to expected pages.</parameterizedString><description/></step><step id=\"3\" type=\"ValidateStep\"><parameterizedString isformatted=\"true\">On mobile viewport confirm tappable areas and stack order.</parameterizedString><parameterizedString isformatted=\"true\">Footer stacks correctly and links are tappable on mobile.</parameterizedString><description/></step></steps>"
   }
 ]
